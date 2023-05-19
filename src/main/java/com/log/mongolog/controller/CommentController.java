@@ -3,7 +3,6 @@ package com.log.mongolog.controller;
 import com.log.mongolog.model.Comment;
 import com.log.mongolog.repository.CommentRepository;
 import com.log.mongolog.service.LogService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +22,9 @@ public class CommentController {
     @PostMapping("/comments")
     public Comment createComment(@RequestBody Comment comment) {
         Date date = new Date();
-        log.info(date, CommentController.class.getName(), comment.toString());
-        return commentRepository.save(comment);
+        Comment savedComment = commentRepository.save(comment);
+        log.info(date, CommentController.class.getName(), savedComment.toString());
+        return savedComment;
     }
 
     @GetMapping("/comments")
